@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+var clap = require('clap');
+var version = require('../package.json').version;
+var editors = require('../lib/editors');
+var main = require('../lib/index');
+
+var command = clap.create('oe', '[filename]')
+  .description('Open file in editor')
+  .version(version)
+
+  .option('-e, --editor <editor>', 'Editor: ' + Object.keys(editors).join(', '))
+
+  .action(function(args){
+    main
+      .configure(this.values)
+      .open(args[0]);
+  });
+
+try {
+  command.run();
+} catch(e) {
+  if (e instanceof clap.Error == false) {
+    throw e;
+  }
+
+  console.error(e.message || e);
+  process.exit(2);
+}

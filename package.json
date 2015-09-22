@@ -3,7 +3,7 @@
   "description": "Open file in editor",
   "version": "0.0.0",
   "author": "Roman Dvornov <rdvornov@gmail.com>",
-  "licenses": "MIT",
+  "license": "MIT",
   "repository": "lahmatiy/open-file-in-editor",
   "keywords": [
     "open",
@@ -15,9 +15,9 @@
     "oe": "./bin/oe"
   },
   "dependencies": {
+    "clap": "^1.0.8",
+    "es6-promise-polyfill": "^1.0.2"
   },
-  "devDependencies": {
-  },
-  "scripts": {
-  }
+  "devDependencies": {},
+  "scripts": {}
 }
