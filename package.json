@@ -1,0 +1,23 @@
+{
+  "name": "open-file-in-editor",
+  "description": "Open file in editor",
+  "version": "0.0.0",
+  "author": "Roman Dvornov <rdvornov@gmail.com>",
+  "licenses": "MIT",
+  "repository": "lahmatiy/open-file-in-editor",
+  "keywords": [
+    "open",
+    "file",
+    "editor"
+  ],
+  "preferGlobal": true,
+  "bin": {
+    "oe": "./bin/oe"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "scripts": {
+  }
+}
