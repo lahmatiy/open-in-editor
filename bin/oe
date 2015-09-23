@@ -3,27 +3,39 @@
 var clap = require('clap');
 var version = require('../package.json').version;
 var editors = require('../lib/editors');
+var fail = require('../lib/utils').fail;
 var main = require('../lib/index');
 
 var command = clap.create('oe', '[filename]')
   .description('Open file in editor')
   .version(version)
 
+  .option('-f, --file <filename>', 'File to open')
   .option('-e, --editor <editor>', 'Editor: ' + Object.keys(editors).join(', '))
+  .option('--cmd <command>', 'Command to open file')
+  .option('--debug', 'Debug errors')
 
-  .action(function(args){
+  .action(function(args) {
     main
-      .configure(this.values)
-      .open(args[0]);
+      .configure(this.values, fail)
+      .open(this.values.file || args[0])
+      .catch(function(err) {
+        if (this.values.debug) {
+          process.nextTick(function() {
+            throw err;
+          });
+        } else {
+          fail(err);
+        }
+      }.bind(this));
   });
 
 try {
   command.run();
-} catch(e) {
-  if (e instanceof clap.Error == false) {
-    throw e;
+} catch (err) {
+  if (err instanceof clap.Error == false) {
+    throw err;
   }
 
-  console.error(e.message || e);
-  process.exit(2);
+  fail(err);
 }
