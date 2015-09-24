@@ -1,3 +1,5 @@
+[![NPM version](https://img.shields.io/npm/v/open-in-editor.svg)](https://www.npmjs.com/package/open-in-editor)
+
 Simplify file open in editor.
 
 Supported editors:
