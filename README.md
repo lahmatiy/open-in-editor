@@ -50,7 +50,7 @@ openInEditor.configure([options][, failCallback]);
 
 Arguments:
 
-- `options` – *optional* uses for setup command to launch editor. If no options set it will try to get command from [environment](#Environment)
+- `options` – *optional* uses for setup command to launch editor. If no options set it will try to get command from [environment](#environment)
 - `failCallback` – *optional* function that calls when something goes wrong on editor setup.
 
 If editor is set up successful `configure` method returns interface with single method `open`. `open` method accepts file reference in format: `filename[:line[:column]]`. `line` and `column` tells editor where to place cursor when file is opened.
