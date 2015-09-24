@@ -2,9 +2,9 @@ Simplify file open in editor.
 
 Supported editors:
 
-- Sublime Text
-- Atom Editor
-- Visual Studio Code
+- [Sublime Text](http://www.sublimetext.com/)
+- [Atom Editor](https://atom.io/)
+- [Visual Studio Code](https://code.visualstudio.com/)
 
 But you also can use any other editor that supported file opening by terminal command.
 
@@ -58,7 +58,9 @@ If editor is set up successful `configure` method returns interface with single 
 #### editor
 
 Type: `String`
+
 Values: `sublime`, `atom`, `code`
+
 Default: *not set*
 
 Allows set editor to open file. Option accepts one preset value. When some value is set, we try to detect command to launch editor if possible.
@@ -72,6 +74,7 @@ Supported editors:
 #### cmd
 
 Type: `String`
+
 Default: *not set*
 
 Specify command to launch editor. If some value set to option then `editor` is ignoring.
@@ -97,6 +100,7 @@ var editor = openInEditor.configure({
 #### line
 
 Type: `Number`
+
 Default: `1`
 
 Defines what is the first line in filename reference that pass to `open`method. Usually it's lines starts with `1`. But you can pass file offset starts with `0`.
@@ -104,6 +108,7 @@ Defines what is the first line in filename reference that pass to `open`method. 
 #### column
 
 Type: `Number`
+
 Default: `1`
 
 Defines what is the first coulmn in filename reference that pass to `open`method. Usually it's coulmns starts with `1`. But you can pass file offset starts with `0`.
