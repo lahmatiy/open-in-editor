@@ -1,6 +1,6 @@
 [![NPM version](https://img.shields.io/npm/v/open-in-editor.svg)](https://www.npmjs.com/package/open-in-editor)
 
-Simplify file open in editor.
+Opens files in editor.
 
 Supported editors:
 
@@ -8,11 +8,11 @@ Supported editors:
 - [Atom Editor](https://atom.io/)
 - [Visual Studio Code](https://code.visualstudio.com/)
 
-But you also can use any other editor that supported file opening by terminal command.
+But you also can use any other editor that is able to open files from command line.
 
-> More editors are comming soon, PRs are welcome.
+> Support for more editors is comming soon. PRs are welcomed!
 
-## Install
+## Installation
 
 ```
 npm install open-in-editor
@@ -20,25 +20,25 @@ npm install open-in-editor
 
 ## Usage
 
-First of all you should create interface with your settings.
+First of all you should create an interface with your settings.
 
 ```js
 var openInEditor = require('open-in-editor');
 var editor = openInEditor.configure({
   // options
 }, function(err) {
-  console.error('Something goes wrong: ' + err);
+  console.error('Something went wrong: ' + err);
 });
 ```
 
-Created interface have single method `open`. This method runs terminal command that opens editor. Result of method is Promise instance:
+Resulting object has a single method `open`. This method runs terminal command that opens an editor. Result of this method is a promise:
 
 ```js
 editor.open('path/to/file.js:3:10')
   .then(function() {
     console.log('Success!');
   }, function(err) {
-    console.error('Something goes wrong: ' + err);
+    console.error('Something went wrong: ' + err);
   });
 ```
 
@@ -50,10 +50,10 @@ openInEditor.configure([options][, failCallback]);
 
 Arguments:
 
-- `options` – *optional* uses for setup command to launch editor. If no options set it will try to get command from [environment](#environment)
-- `failCallback` – *optional* function that calls when something goes wrong on editor setup.
+- `options` – *optional* is used to set up a command to launch an editor. If no options set it will try to get the command from [environment](#environment)
+- `failCallback` – *optional* function that is called when something's wrong with editor setup.
 
-If editor is set up successful `configure` method returns interface with single method `open`. `open` method accepts file reference in format: `filename[:line[:column]]`. `line` and `column` tells editor where to place cursor when file is opened.
+If editor setup was successful `configure` method returns an interface with single method `open`. The method accepts file reference with the following format: `filename[:line[:column]]`, where `line` and `column` tell the editor where to place cursor when file is opened.
 
 ### Options
 
@@ -65,7 +65,7 @@ Values: `sublime`, `atom`, `code`
 
 Default: *not set*
 
-Allows set editor to open file. Option accepts one preset value. When some value is set, we try to detect command to launch editor if possible.
+Editor that will be used to open a file. Once value is set, we try to detect a command to launch the editor.
 
 Supported editors:
 
@@ -79,9 +79,9 @@ Type: `String`
 
 Default: *not set*
 
-Specify command to launch editor. If some value set to option then `editor` is ignoring.
+Command that will be used to launch the editor. If this option is set, `editor` is ignored.
 
-Command could contains some patterns to be replaced by actual values. Supported values: `filename`, `line` and `column`.
+Command could contain placeholders that will be replaced by actual values. Supported placeholders: `filename`, `line` and `column`.
 
 ```js
 var openInEditor = require('open-in-editor');
@@ -90,7 +90,7 @@ var editor = openInEditor.configure({
 });
 ```
 
-If no `{filename}` pattern in command then `{filename}:{line}:{column}` is appending. So, previous example could be simplified:
+If there's no `{filename}` placholder in the command then `{filename}:{line}:{column}` is appended. That way previous example could be simplified:
 
 ```js
 var openInEditor = require('open-in-editor');
@@ -105,7 +105,7 @@ Type: `Number`
 
 Default: `1`
 
-Defines what is the first line in filename reference that pass to `open`method. Usually it's lines starts with `1`. But you can pass file offset starts with `0`.
+Defines the number of the first line in the editor. Usually it's `1`, but you can set it to `0`.
 
 #### column
 
@@ -113,19 +113,20 @@ Type: `Number`
 
 Default: `1`
 
-Defines what is the first coulmn in filename reference that pass to `open`method. Usually it's coulmns starts with `1`. But you can pass file offset starts with `0`.
+Defines the number of the first column in the editor. Usually it's `1`, but you can set it to `0`.
+
 
 ## Environment
 
-If no `editor` or `cmd` value specified, we try to get command to launch editor from environment settings. Follow values could be used (in descending of priority):
+If no `editor` or `cmd` value specified, we try to get the command to launch editor using environment settings. Following values could be used (in descending priority):
 
 - `process.env.OPEN_FILE`
 - `process.env.VISUAL`
 - `process.env.EDITOR`
 
-If any value found it uses as value for `cmd` option. But `OPEN_FILE` a little bit different: if value is one of allowed values for `editor` it uses as value for `editor` option, otherwise it uses as value for `cmd`.
+First value found is used. If it's `process.env.VISUAL` or `process.env.EDITOR`, it's used directly as `cmd` option. But `process.env.OPEN_FILE` is different: if value is allowed for `editor` parameter, it's used as a value for `editor` option, otherwise it's used as a value for `cmd` option.
 
-You can set env setting on any command launch:
+You can set env settings per command:
 
 ```
 OPEN_FILE=atom oe path/to/file.js:4:15
@@ -140,7 +141,7 @@ Package could be installed globally.
 npm install open-in-editor -g
 ```
 
-In this case `oe` command will be available in terminal. Usage of command:
+In this case `oe` command will be available in terminal.
 
 ```
 Usage:
@@ -154,7 +155,7 @@ Options:
   -e, --editor <editor>    Editor: atom, code, sublime
   -f, --file <filename>    File to open
   -h, --help               Output usage information
-  -v, --version            Output the version
+  -v, --version            Output version
 ```
 
 ## Related projects
