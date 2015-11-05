@@ -11,7 +11,6 @@
     "editor"
   ],
   "main": "./lib/index.js",
-  "preferGlobal": true,
   "bin": {
     "oe": "./bin/oe"
   },
