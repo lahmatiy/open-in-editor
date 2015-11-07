@@ -8,7 +8,13 @@
   "keywords": [
     "open",
     "file",
-    "editor"
+    "editor",
+    "atom",
+    "code",
+    "idea",
+    "phpstorm",
+    "webstorm",
+    "sublime"
   ],
   "main": "./lib/index.js",
   "bin": {
