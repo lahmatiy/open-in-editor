@@ -8,6 +8,7 @@ Supported editors:
 - [Atom Editor](https://atom.io/)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [WebStorm](https://www.jetbrains.com/webstorm/)
+- [PhpStorm](https://www.jetbrains.com/phpstorm/)
 - [IDEA 14 Community Edition](https://www.jetbrains.com/idea/download/)
 
 But you also can use any other editor that is able to open files from command line.
@@ -63,7 +64,7 @@ If editor setup was successful `configure` method returns an interface with sing
 
 Type: `String`
 
-Values: `sublime`, `atom`, `code`, `webstorm`, `idea14ce`
+Values: `sublime`, `atom`, `code`, `webstorm`, `phpstorm`, `idea14ce`
 
 Default: *not set*
 
@@ -75,6 +76,7 @@ Supported editors:
 - `atom` – Atom Editor
 - `code` – Visual Studio Code
 - `webstorm` – WebStorm
+- `phpstorm` - PhpStorm
 - `idea14ce` – IDEA 14 CE
 
 #### cmd
@@ -156,7 +158,7 @@ Options:
 
       --cmd <command>      Command to open file
       --debug              Debug errors
-  -e, --editor <editor>    Editor: atom, code, sublime, webstorm, idea14ce
+  -e, --editor <editor>    Editor: atom, code, sublime, webstorm, phpstorm, idea14ce
   -f, --file <filename>    File to open
   -h, --help               Output usage information
   -v, --version            Output version
