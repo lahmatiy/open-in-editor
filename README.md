@@ -11,7 +11,7 @@ Supported editors:
 - [PhpStorm](https://www.jetbrains.com/phpstorm/)
 - [IDEA 14 Community Edition](https://www.jetbrains.com/idea/download/)
 
-But you also can use any other editor that is able to open files from command line.
+You also can use any other editor that is able to open files from command line.
 
 > Support for more editors is comming soon. PRs are welcomed!
 
