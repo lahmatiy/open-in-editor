@@ -1,6 +1,6 @@
 [![NPM version](https://img.shields.io/npm/v/open-in-editor.svg)](https://www.npmjs.com/package/open-in-editor)
 
-Opens files in editor.
+NPM package to open a file in editor.
 
 Supported editors:
 
@@ -12,8 +12,6 @@ Supported editors:
 - [IDEA 14 Community Edition](https://www.jetbrains.com/idea/download/)
 
 You also can use any other editor that is able to open files from command line.
-
-> Support for more editors is comming soon. PRs are welcomed!
 
 ## Installation
 
