@@ -1,3 +1,7 @@
+## 1.2.1 (November 14, 2015)
+
+- Added VS Code detection by `code` command
+
 ## 1.2.0 (November 12, 2015)
 
 - Add support of JetBains IDEs on Windows (thanks to @Mavrin)
