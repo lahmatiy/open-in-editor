@@ -11,6 +11,7 @@ Supported editors:
 - [PhpStorm](https://www.jetbrains.com/phpstorm/)
 - [IDEA 14 Community Edition](https://www.jetbrains.com/idea/download/)
 - [Vim](http://www.vim.org/)
+- [Emacs](https://www.gnu.org/software/emacs/)
 - [Visual Studio](https://www.visualstudio.com/)
 
 You also can use any other editor that is able to open files from command line.
