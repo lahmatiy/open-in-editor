@@ -78,7 +78,7 @@ Supported editors:
 - `webstorm` – WebStorm
 - `phpstorm` - PhpStorm
 - `idea14ce` – IDEA 14 CE
-- `vim` – Vim (terminal)
+- `vim` – Vim (via Terminal, Mac OS only)
 - `visualstudio` – Visual Studio
 
 #### cmd
