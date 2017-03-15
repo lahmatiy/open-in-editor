@@ -11,6 +11,7 @@ Supported editors:
 - [PhpStorm](https://www.jetbrains.com/phpstorm/)
 - [IDEA 14 Community Edition](https://www.jetbrains.com/idea/download/)
 - [Vim](http://www.vim.org/)
+- [Visual Studio](https://www.visualstudio.com/)
 
 You also can use any other editor that is able to open files from command line.
 
@@ -63,7 +64,7 @@ If editor setup was successful `configure` method returns an interface with sing
 
 Type: `String`
 
-Values: `sublime`, `atom`, `code`, `webstorm`, `phpstorm`, `idea14ce`, `vim`
+Values: `sublime`, `atom`, `code`, `webstorm`, `phpstorm`, `idea14ce`, `vim`, `visualstudio`
 
 Default: *not set*
 
@@ -78,6 +79,7 @@ Supported editors:
 - `phpstorm` - PhpStorm
 - `idea14ce` – IDEA 14 CE
 - `vim` – Vim (terminal)
+- `visualstudio` – Visual Studio
 
 #### cmd
 
