@@ -24,12 +24,16 @@
 
 ' e-mail: E?????[dot]P???????[at]gmail.???
 
+Option Explicit
+
+Dim filename, line, column
+Dim MSVS_versions, version
+Dim dte, fso
+Dim fullpath
 
 filename = WScript.Arguments(0)
 line = WScript.Arguments(1)
 column = WScript.Arguments(2)
-
-On Error Resume Next
 
 MSVS_versions = Array _
 ( _
@@ -40,8 +44,11 @@ MSVS_versions = Array _
     "VisualStudio.DTE.10.0", _
     "VisualStudio.DTE.11.0", _
     "VisualStudio.DTE.12.0", _
-    "VisualStudio.DTE.14.0" _
+    "VisualStudio.DTE.14.0", _
+    "VisualStudio.DTE.15.0" _
 )
+
+On Error Resume Next
 
 For each version in MSVS_versions
     Err.Clear
@@ -56,11 +63,18 @@ If Err.Number <> 0 Then
     Err.Clear
 End If
 
+Set fso = WScript.CreateObject("Scripting.FileSystemObject")
+fullpath = fso.GetAbsolutePathName(filename)
 
-dte.MainWindow.Activate
+dte.MainWindow.Activate()
 dte.MainWindow.Visible = True
 dte.UserControl = True
 
-dte.ItemOperations.OpenFile filename
+dte.ItemOperations.OpenFile fullpath
 dte.ActiveDocument.Selection.MoveToLineAndOffset line, column + 1
 
+if Err.Number <> 0 Then
+    WScript.Quit Err.Number
+End If
+
+On Error Goto 0
