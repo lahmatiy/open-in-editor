@@ -28,7 +28,7 @@ Option Explicit
 
 Dim filename, line, column
 Dim MSVS_versions, version
-Dim dte, fso
+Dim dte, fso, wshShell
 Dim fullpath
 
 filename = WScript.Arguments(0)
@@ -63,12 +63,14 @@ If Err.Number <> 0 Then
     Err.Clear
 End If
 
+Set wshShell = WScript.CreateObject("WScript.Shell")
 Set fso = WScript.CreateObject("Scripting.FileSystemObject")
 fullpath = fso.GetAbsolutePathName(filename)
 
 dte.MainWindow.Activate()
 dte.MainWindow.Visible = True
 dte.UserControl = True
+wshShell.AppActivate dte.MainWindow.Caption
 
 dte.ItemOperations.OpenFile fullpath
 dte.ActiveDocument.Selection.MoveToLineAndOffset line, column + 1
