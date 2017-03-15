@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "clap": "^1.0.8",
-    "es6-promise-polyfill": "^1.0.2",
     "os-homedir": "1.0.1"
   },
   "devDependencies": {},
