@@ -10,7 +10,7 @@
 
 ## 1.2.0 (November 12, 2015)
 
-- Added support for JetBrain's IDEs on Windows (thanks to @Mavrin)
+- Added support for JetBrains's IDEs on Windows (thanks to @Mavrin)
 
 ## 1.1.0 (November 8, 2015)
 
