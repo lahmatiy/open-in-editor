@@ -65,7 +65,7 @@ If editor setup was successful `configure` method returns an interface with sing
 
 Type: `String`
 
-Values: `sublime`, `atom`, `code`, `webstorm`, `phpstorm`, `idea14ce`, `vim`, `visualstudio`
+Values: `sublime`, `atom`, `code`, `webstorm`, `phpstorm`, `idea14ce`, `vim`, `emacs`, `visualstudio`
 
 Default: *not set*
 
@@ -80,6 +80,7 @@ Supported editors:
 - `phpstorm` - PhpStorm
 - `idea14ce` – IDEA 14 CE
 - `vim` – Vim (via Terminal, Mac OS only)
+- `emacs` – Emacs (via Terminal, Mac OS only)
 - `visualstudio` – Visual Studio
 
 #### cmd
