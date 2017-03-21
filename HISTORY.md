@@ -1,3 +1,8 @@
+## 2.1.0 (March 21, 2017)
+
+- Added basic support for `emacs` (thanks to @zefirka)
+- Fixed crash on attempt to use `vim` on non-`darwin` platform
+
 ## 2.0.0 (March 15, 2017)
 
 - Added basic support for `vim` (thanks to @pofigizm)

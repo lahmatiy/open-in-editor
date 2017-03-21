@@ -1,7 +1,7 @@
 {
   "name": "open-in-editor",
   "description": "Open file in editor",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": "Roman Dvornov <rdvornov@gmail.com>",
   "license": "MIT",
   "repository": "lahmatiy/open-in-editor",
