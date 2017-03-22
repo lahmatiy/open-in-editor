@@ -63,7 +63,7 @@ If editor setup was successful `configure` method returns an interface with sing
 
 #### editor
 
-Type: `String`  
+Type: `String` or `null`  
 Values: `'sublime'`, `'atom'`, `'code'`, `'webstorm'`, `'phpstorm'`, `'idea14ce'`, `'vim'`, `'emacs'`, `'visualstudio'`  
 Default: `null`
 
@@ -83,7 +83,7 @@ Supported editors:
 
 #### cmd
 
-Type: `String`  
+Type: `String` or `null`  
 Default: `null`
 
 Command to launch an editor.
@@ -107,8 +107,8 @@ var editor = openInEditor.configure({
 
 #### pattern
 
-Type: `String`  
-Default: `{filename}:{line}:{column}`
+Type: `String` or `null`  
+Default: `null`
 
 Option to specify arguments for a command. Pattern can contain placeholders to be replaced by actual values. Supported placeholders: `filename`, `line` and `column`.
 
