@@ -1,3 +1,9 @@
+## 2.2.0 (March 22, 2017)
+
+- Fixed passing settings to `open()` when only `cmd` option is set (#10)
+- Changed behaviour to use an editor settings as defaults when `editor` and `cmd` options are specified
+- Added `--pattern` option to CLI
+
 ## 2.1.0 (March 21, 2017)
 
 - Added basic support for `emacs` (thanks to @zefirka)
