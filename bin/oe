@@ -12,6 +12,7 @@ var command = clap.create('oe', '[filename]')
 
   .option('-f, --file <filename>', 'File to open')
   .option('-e, --editor <editor>', 'Editor: ' + Object.keys(editors).join(', '))
+  .option('-p, --pattern <pattern>', 'Filename pattern and args, i.e. something going after cmd')
   .option('--cmd <command>', 'Command to open file')
   .option('--debug', 'Debug errors')
 
