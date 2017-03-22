@@ -63,13 +63,11 @@ If editor setup was successful `configure` method returns an interface with sing
 
 #### editor
 
-Type: `String`
+Type: `String`  
+Values: `'sublime'`, `'atom'`, `'code'`, `'webstorm'`, `'phpstorm'`, `'idea14ce'`, `'vim'`, `'emacs'`, `'visualstudio'`  
+Default: `null`
 
-Values: `sublime`, `atom`, `code`, `webstorm`, `phpstorm`, `idea14ce`, `vim`, `emacs`, `visualstudio`
-
-Default: *not set*
-
-Editor that will be used to open a file. Once value is set, we try to detect a command to launch the editor.
+Editor to open a file. Once value is set, we try to detect a command to launch an editor.
 
 Supported editors:
 
@@ -85,42 +83,63 @@ Supported editors:
 
 #### cmd
 
-Type: `String`
+Type: `String`  
+Default: `null`
 
-Default: *not set*
-
-Command that will be used to launch the editor. If this option is set, `editor` is ignored.
-
-Command could contain placeholders that will be replaced by actual values. Supported placeholders: `filename`, `line` and `column`.
+Command to launch an editor.
 
 ```js
 var openInEditor = require('open-in-editor');
 var editor = openInEditor.configure({
-  cmd: 'code -r -g {filename}:{line}:{column}'
+  cmd: '/path/to/editor/app'
 });
 ```
 
-If there's no `{filename}` placholder in the command then `{filename}:{line}:{column}` is appended. That way previous example could be simplified:
+If `editor` option is also set, an editor settings are using as default settings.
 
 ```js
 var openInEditor = require('open-in-editor');
 var editor = openInEditor.configure({
-  cmd: 'code -r -g'
+  editor: 'code',
+  cmd: '/path/to/editor/app' // will be called as '/path/to/editor/app -r -g {filename}:{line}:{column}'
+});
+```
+
+#### pattern
+
+Type: `String`  
+Default: `{filename}:{line}:{column}`
+
+Option to specify arguments for a command. Pattern can contain placeholders to be replaced by actual values. Supported placeholders: `filename`, `line` and `column`.
+
+```js
+var openInEditor = require('open-in-editor');
+var editor = openInEditor.configure({
+  cmd: 'code',
+  pattern: '-r -g {filename}:{line}:{column}'
+});
+```
+
+If there's no `{filename}` placeholder in the command then `{filename}:{line}:{column}` is appended. That way previous example can be simplified:
+
+```js
+var openInEditor = require('open-in-editor');
+var editor = openInEditor.configure({
+  cmd: 'code',
+  pattern: '-r -g' // the same as '-r -g {filename}:{line}:{column}'
 });
 ```
 
 #### line
 
-Type: `Number`
-
+Type: `Number`  
 Default: `1`
 
 Defines the number of the first line in the editor. Usually it's `1`, but you can set it to `0`.
 
 #### column
 
-Type: `Number`
-
+Type: `Number`  
 Default: `1`
 
 Defines the number of the first column in the editor. Usually it's `1`, but you can set it to `0`.
@@ -128,13 +147,13 @@ Defines the number of the first column in the editor. Usually it's `1`, but you 
 
 ## Environment
 
-If no `editor` or `cmd` value specified, we try to get the command to launch editor using environment settings. Following values could be used (in descending priority):
+If no `editor` or `cmd` option is specified, we try to get the command to launch an editor using environment settings. Following values can be used (in descending priority):
 
 - `process.env.OPEN_FILE`
 - `process.env.VISUAL`
 - `process.env.EDITOR`
 
-First value found is used. If it's `process.env.VISUAL` or `process.env.EDITOR`, it's used directly as `cmd` option. But `process.env.OPEN_FILE` is different: if value is allowed for `editor` parameter, it's used as a value for `editor` option, otherwise it's used as a value for `cmd` option.
+First value found is used. If it's `process.env.VISUAL` or `process.env.EDITOR`, it's used directly as `cmd` option. But `process.env.OPEN_FILE` is different: if value is a valid for `editor` option, it's used for it, otherwise it's used as a value for `cmd` option.
 
 You can set env settings per command:
 
@@ -162,10 +181,11 @@ Options:
 
       --cmd <command>      Command to open file
       --debug              Debug errors
-  -e, --editor <editor>    Editor: atom, code, sublime, webstorm, phpstorm, idea14ce, vim
+  -e, --editor <editor>    Editor: atom, code, sublime, webstorm, phpstorm, idea14ce, vim, visualstudio, emacs
   -f, --file <filename>    File to open
   -h, --help               Output usage information
-  -v, --version            Output version
+  -p, --pattern <pattern>  Filename pattern and args, i.e. something going after cmd
+  -v, --version            Output the version
 ```
 
 ## Related projects
