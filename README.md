@@ -188,6 +188,21 @@ Options:
   -v, --version            Output the version
 ```
 
+## Development
+
+It's very simple playing with `oe`. Just try the tests before contributing:
+
+```
+git clone https://github.com/lahmatiy/open-in-editor
+npm install -d
+npm test
+```
+
+## Contributing
+
+Pull requests and stars are always welcome.
+For bugs and feature requests, please [create an issue](https://github.com/lahmatiy/open-in-editor).
+
 ## Related projects
 
 - [express-open-in-editor](https://github.com/lahmatiy/express-open-in-editor) – `Express` extension to open files from browser.
