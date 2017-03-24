@@ -1,5 +1,6 @@
-// var terminal = require('../lib/editors/common/terminal');
-var expect = require('chai').expect;
+var chai = require('chai');
+var expect = chai.expect;
+
 var shell = require('../lib/editors/common/shell');
 
 describe('shell command', function () {

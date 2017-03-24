@@ -35,9 +35,20 @@
   },
   "devDependencies": {
     "chai": "3.5.0",
+    "dirty-chai": "1.2.2",
+    "eslint": "3.15.0",
+    "eslint-config-semistandard": "7.0.0",
+    "eslint-config-standard": "7.0.0",
+    "eslint-mocha": "0.1.0",
+    "eslint-plugin-markdown": "1.0.0-beta.4",
+    "eslint-plugin-mocha": "4.9.0",
+    "eslint-plugin-promise": "3.5.0",
+    "eslint-plugin-standard": "2.1.1",
     "mocha": "3.2.0"
   },
   "scripts": {
+    "lint": "eslint --ext js .",
+    "fix": "eslint --fix --ext js .",
     "test": "mocha --reporter spec --bail --check-leaks test/",
     "test-watch": "mocha -w --reporter spec --bail --check-leaks test/"
   }
