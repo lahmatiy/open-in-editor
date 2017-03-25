@@ -36,9 +36,9 @@
   "devDependencies": {
     "chai": "3.5.0",
     "dirty-chai": "1.2.2",
-    "eslint": "3.15.0",
-    "eslint-config-semistandard": "7.0.0",
-    "eslint-config-standard": "7.0.0",
+    "eslint": "3.18.0",
+    "eslint-config-semistandard": "8.0.0",
+    "eslint-config-standard": "7.1.0",
     "eslint-mocha": "0.1.0",
     "eslint-plugin-mocha": "4.9.0",
     "eslint-plugin-promise": "3.5.0",
