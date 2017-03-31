@@ -48,7 +48,7 @@
   "scripts": {
     "lint": "eslint --ext js .",
     "fix": "eslint --fix --ext js .",
-    "test": "mocha --reporter spec --bail --check-leaks test/",
-    "test-watch": "mocha -w --reporter spec --bail --check-leaks test/"
+    "test": "mocha --reporter spec --bail --check-leaks test",
+    "test-watch": "mocha -w --reporter spec --bail --check-leaks test"
   }
 }

@@ -194,7 +194,7 @@ It's very simple playing with `oe`. Just try the tests before contributing:
 
 ```
 git clone https://github.com/lahmatiy/open-in-editor
-npm install -d
+npm install
 npm test
 ```
 

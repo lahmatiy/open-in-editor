@@ -8,6 +8,7 @@ describe('shell command', function () {
     expect(shell() + '')
       .to.equal('');
   });
+
   it('should take single argument', function () {
     expect(shell('sh') + '')
       .to.equal('sh');
