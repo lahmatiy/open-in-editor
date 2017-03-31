@@ -1,86 +1,98 @@
-var chai = require('chai');
-var expect = chai.expect;
-
+var assert = require('assert');
 var shell = require('../lib/editors/common/shell');
 
 describe('shell command', function () {
   it('should take zero argument', function () {
-    expect(shell() + '')
-      .to.equal('');
+    var res = shell();
+    assert.equal(res, '');
   });
 
   it('should take single argument', function () {
-    expect(shell('sh') + '')
-      .to.equal('sh');
+    var res = shell('sh');
+    assert.equal(res, 'sh');
   });
 
   it('should take many arguments', function () {
-    expect(shell('sh -c') + '')
-      .to.equal('sh -c');
+    var res = shell('sh -c');
+    assert.equal(res, 'sh -c');
   });
 
   it('should take nested shell', function () {
-    expect(shell('sh -c', shell('bash')) + '')
-      .to.equal('sh -c bash');
+    var res = shell('sh -c', shell('bash'));
+    assert.equal(res, 'sh -c bash');
   });
 
   it('should take nested shell with many arguments', function () {
-    expect(shell('sh -c', shell('echo foo')) + '')
-      .to.equal(`sh -c 'echo foo'`);
+    var res = shell('sh -c', shell('echo foo'));
+    assert.equal(res, "sh -c 'echo foo'");
   });
 
   it('should take nested shell with arbitrary levels', function () {
-    expect(shell('sh -c', shell('sh -c', shell('echo foo'))) + '')
-      .to.equal(`sh -c 'sh -c '\\''echo foo'\\'`);
+    var res = shell('sh -c', shell('sh -c', shell('echo foo')));
+    assert.equal(res, "sh -c 'sh -c '\\''echo foo'\\'");
   });
 
   it('should substitute single param', function () {
-    expect(shell('sh -c {path}').withParams({ path: 'foo' }) + '')
-      .to.equal('sh -c foo');
+    var res = shell('sh -c {path}').withParams({
+      path: 'foo'
+    });
+    assert.equal(res, 'sh -c foo');
   });
 
   it('should substitute param inside the argument', function () {
-    expect(shell('sh -c {path}:1').withParams({ path: 'foo', line: 1 }) + '')
-      .to.equal(`sh -c foo:1`);
+    var res = shell('sh -c {path}:1').withParams({
+      path: 'foo',
+      line: 1
+    });
+    assert.equal(res, 'sh -c foo:1');
   });
 
   it('should substitute param having some spaces in value', function () {
-    expect(shell('sh -c {path}:1').withParams({ path: 'foo bar', line: 1 }) + '')
-      .to.equal(`sh -c 'foo bar:1'`);
+    var res = shell('sh -c {path}:1').withParams({
+      path: 'foo bar',
+      line: 1
+    });
+    assert.equal(res, "sh -c 'foo bar:1'");
   });
 
   it('should propagate params to nested shells', function () {
-    expect(shell('sh -c', shell('{path}')).withParams({ path: 'foo' }) + '')
-      .to.equal('sh -c foo');
+    var res = shell('sh -c', shell('{path}')).withParams({
+      path: 'foo'
+    });
+    assert.equal(res, 'sh -c foo');
   });
 
   it('should propagete params having some spaces in value to nested shells', function () {
-    expect(shell('sh -c', shell('echo {path}')).withParams({ path: 'foo bar' }) + '')
-      .to.equal(`sh -c 'echo '\\''foo bar'\\'`);
+    var res = shell('sh -c', shell('echo {path}')).withParams({
+      path: 'foo bar'
+    });
+    assert.equal(res, "sh -c 'echo '\\''foo bar'\\'");
   });
 
   it('should keep unparsed params', function () {
-    expect(shell('cd {projectDir}') + '')
-      .to.equal(`cd {projectDir}`);
+    var res = shell('cd {projectDir}');
+    assert.equal(res, 'cd {projectDir}');
   });
 
   it('should keep multiple unparsed params', function () {
-    expect(shell('cd {projectDir} {line}') + '')
-      .to.equal(`cd {projectDir} {line}`);
+    var res = shell('cd {projectDir} {line}');
+    assert.equal(res, 'cd {projectDir} {line}');
   });
 
   it('should append agruments', function () {
-    expect(shell('sh').concat('-c -d') + '')
-      .to.equal(`sh -c -d`);
+    var res = shell('sh').concat('-c -d');
+    assert.equal(res, 'sh -c -d');
   });
 
   it('should concat shell', function () {
-    expect(shell('sh').concat(shell('-c -d')) + '')
-      .to.equal(`sh -c -d`);
+    var res = shell('sh').concat(shell('-c -d'));
+    assert.equal(res, 'sh -c -d');
   });
 
   it('should concat shell with params', function () {
-    expect(shell('sh').concat(shell('{foo}').withParams({foo: 'bar'})) + '')
-      .to.equal(`sh bar`);
+    var res = shell('sh').concat(shell('{foo}').withParams({
+      foo: 'bar'
+    }));
+    assert.equal(res, 'sh bar');
   });
 });

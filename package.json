@@ -34,8 +34,6 @@
     "shell-quote": "1.6.1"
   },
   "devDependencies": {
-    "chai": "3.5.0",
-    "dirty-chai": "1.2.2",
     "eslint": "3.18.0",
     "eslint-config-semistandard": "8.0.0",
     "eslint-config-standard": "7.1.0",
