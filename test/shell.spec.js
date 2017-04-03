@@ -1,98 +1,147 @@
 var assert = require('assert');
 var shell = require('../lib/editors/common/shell');
 
-describe('shell command', function () {
-  it('should take zero argument', function () {
-    var res = shell();
-    assert.equal(res, '');
-  });
+testSuite('linux');
+testSuite('win32');
 
-  it('should take single argument', function () {
-    var res = shell('sh');
-    assert.equal(res, 'sh');
-  });
+function testSuite (platform) {
+  function assertEqual (actual, expected, message) {
+    if (typeof expected !== 'string') {
+      expected = expected[platform];
+    }
+    if (String(actual) != expected) {
+      assert.fail(String(actual), expected, message, '==', assertEqual);
+    }
+  }
 
-  it('should take many arguments', function () {
-    var res = shell('sh -c');
-    assert.equal(res, 'sh -c');
-  });
-
-  it('should take nested shell', function () {
-    var res = shell('sh -c', shell('bash'));
-    assert.equal(res, 'sh -c bash');
-  });
-
-  it('should take nested shell with many arguments', function () {
-    var res = shell('sh -c', shell('echo foo'));
-    assert.equal(res, "sh -c 'echo foo'");
-  });
-
-  it('should take nested shell with arbitrary levels', function () {
-    var res = shell('sh -c', shell('sh -c', shell('echo foo')));
-    assert.equal(res, "sh -c 'sh -c '\\''echo foo'\\'");
-  });
-
-  it('should substitute single param', function () {
-    var res = shell('sh -c {path}').withParams({
-      path: 'foo'
+  describe('platform ' + platform, function () {
+    beforeEach(function () {
+      this.originalPlatform = process.platform;
+      Object.defineProperty(process, 'platform', {
+        value: platform
+      });
     });
-    assert.equal(res, 'sh -c foo');
-  });
 
-  it('should substitute param inside the argument', function () {
-    var res = shell('sh -c {path}:1').withParams({
-      path: 'foo',
-      line: 1
+    afterEach(function () {
+      Object.defineProperty(process, 'platform', {
+        value: this.originalPlatform
+      });
     });
-    assert.equal(res, 'sh -c foo:1');
-  });
 
-  it('should substitute param having some spaces in value', function () {
-    var res = shell('sh -c {path}:1').withParams({
-      path: 'foo bar',
-      line: 1
+    describe('shell command', function () {
+      it('should take zero argument', function () {
+        var res = shell();
+        assertEqual(res, '');
+      });
+
+      it('should take single argument', function () {
+        var res = shell('sh');
+        assertEqual(res, 'sh');
+      });
+
+      it('should take many arguments', function () {
+        var res = shell.parse('sh -c');
+        assertEqual(res, 'sh -c');
+      });
+
+      it('should take nested shell', function () {
+        var res = shell.parse('sh -c', shell('bash'));
+        assertEqual(res, 'sh -c bash');
+      });
+
+      it('should take nested shell with many arguments', function () {
+        var res = shell.parse('sh -c', shell.parse('echo foo'));
+        assertEqual(res, {
+          linux: "sh -c 'echo foo'",
+          win32: 'sh -c "echo foo"'
+        });
+      });
+
+      it('should take nested shell with arbitrary levels', function () {
+        var res = shell.parse('sh -c', shell.parse('sh -c', shell.parse('echo foo')));
+        assertEqual(res, {
+          linux: "sh -c 'sh -c '\\''echo foo'\\'",
+          win32: 'sh -c "sh -c \\"echo foo\\""'
+        });
+      });
+
+      it('should substitute single param', function () {
+        var res = shell.parse('sh -c {path}').withParams({
+          path: 'foo'
+        });
+        assertEqual(res, 'sh -c foo');
+      });
+
+      it('should substitute param inside the argument', function () {
+        var res = shell.parse('sh -c {path}:1').withParams({
+          path: 'foo',
+          line: 1
+        });
+        assertEqual(res, 'sh -c foo:1');
+      });
+
+      it('should substitute param having some spaces in value', function () {
+        var res = shell.parse('sh -c {path}:1').withParams({
+          path: 'foo bar',
+          line: 1
+        });
+        assertEqual(res, {
+          linux: "sh -c 'foo bar:1'",
+          win32: 'sh -c "foo bar:1"'
+        });
+      });
+
+      it('should propagate params to nested shells', function () {
+        var res = shell.parse('sh -c', shell('{path}')).withParams({
+          path: 'foo'
+        });
+        assertEqual(res, 'sh -c foo');
+      });
+
+      it('should propagete params having some spaces in value to nested shells', function () {
+        var res = shell.parse('sh -c', shell.parse('echo {path}')).withParams({
+          path: 'foo bar'
+        });
+        assertEqual(res, {
+          linux: "sh -c 'echo '\\''foo bar'\\'",
+          win32: 'sh -c "echo \\"foo bar\\""'
+        });
+      });
+
+      it('should keep unparsed params', function () {
+        var res = shell.parse('cd {projectDir}');
+        assertEqual(res, 'cd {projectDir}');
+      });
+
+      it('should keep multiple unparsed params', function () {
+        var res = shell.parse('cd {projectDir} {line}');
+        assertEqual(res, 'cd {projectDir} {line}');
+      });
+
+      it('should append agruments', function () {
+        var res = shell('sh').concat(shell.parse('-c -d'));
+        assertEqual(res, 'sh -c -d');
+      });
+
+      it('should concat shell', function () {
+        var res = shell('sh').concat(shell.parse('-c -d'));
+        assertEqual(res, 'sh -c -d');
+      });
+
+      it('should concat shell with params', function () {
+        var res = shell('sh').concat(shell('{foo}').withParams({
+          foo: 'bar'
+        }));
+        assertEqual(res, 'sh bar');
+      });
+
+      it('should handle path with spaces', function () {
+        var res = shell('C:/Program Files (x86)/Microsoft VS Code/bin/code.cmd');
+        assertEqual(res, {
+          linux: "'C:/Program Files (x86)/Microsoft VS Code/bin/code.cmd'",
+          win32: '"C:/Program Files (x86)/Microsoft VS Code/bin/code.cmd"'
+        });
+      });
     });
-    assert.equal(res, "sh -c 'foo bar:1'");
   });
-
-  it('should propagate params to nested shells', function () {
-    var res = shell('sh -c', shell('{path}')).withParams({
-      path: 'foo'
-    });
-    assert.equal(res, 'sh -c foo');
-  });
-
-  it('should propagete params having some spaces in value to nested shells', function () {
-    var res = shell('sh -c', shell('echo {path}')).withParams({
-      path: 'foo bar'
-    });
-    assert.equal(res, "sh -c 'echo '\\''foo bar'\\'");
-  });
-
-  it('should keep unparsed params', function () {
-    var res = shell('cd {projectDir}');
-    assert.equal(res, 'cd {projectDir}');
-  });
-
-  it('should keep multiple unparsed params', function () {
-    var res = shell('cd {projectDir} {line}');
-    assert.equal(res, 'cd {projectDir} {line}');
-  });
-
-  it('should append agruments', function () {
-    var res = shell('sh').concat('-c -d');
-    assert.equal(res, 'sh -c -d');
-  });
-
-  it('should concat shell', function () {
-    var res = shell('sh').concat(shell('-c -d'));
-    assert.equal(res, 'sh -c -d');
-  });
-
-  it('should concat shell with params', function () {
-    var res = shell('sh').concat(shell('{foo}').withParams({
-      foo: 'bar'
-    }));
-    assert.equal(res, 'sh bar');
-  });
-});
+}

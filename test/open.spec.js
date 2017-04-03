@@ -28,11 +28,11 @@ describe('makeCommand', function () {
 
   it('should support `terminal` option for linux', function () {
     var res = makeCommand('editor', 'test.txt:1:1', { terminal: true, platform: 'linux' });
-    assert.ok(res.cmd.match(/gnome-terminal/));
+    assert.ok(res.cmd.match(/^gnome-terminal/));
   });
 
   it('should support `terminal` option for darwin', function () {
     var res = makeCommand('editor', 'test.txt:1:1', { terminal: true, platform: 'darwin' });
-    assert.ok(res.cmd.match(/osascript/));
+    assert.ok(res.cmd.match(/^osascript/));
   });
 });
