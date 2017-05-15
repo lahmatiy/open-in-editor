@@ -1,10 +1,10 @@
 {
-  "name": "open-in-editor",
+  "name": "@generalov/open-in-editor",
   "description": "Open file in editor",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "author": "Roman Dvornov <rdvornov@gmail.com>",
   "license": "MIT",
-  "repository": "lahmatiy/open-in-editor",
+  "repository": "generalov/open-in-editor",
   "keywords": [
     "open",
     "file",

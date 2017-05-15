@@ -1,6 +1,21 @@
-[![NPM version](https://img.shields.io/npm/v/open-in-editor.svg)](https://www.npmjs.com/package/open-in-editor)
+[![NPM version](https://img.shields.io/npm/v/@generalov/open-in-editor.svg)](https://www.npmjs.com/package/@generalov/open-in-editor)
 
 NPM package to open a file in editor.
+
+
+This fork of [open-in-editor](https://www.npmjs.com/package/open-in-editor) v2.2.0.
+
+Changes:
+
+* Improved Win32 support.
+* Added the support for gnome-terminal on Linux.
+* Added unit tests.
+* Fixed command line arguments escaping.
+
+Incompatible changes:
+
+* Temporary: The `cmd` options can contain just a path to the editors binary. Command line arguments should be in the `pattern`.
+
 
 Supported editors:
 
@@ -63,8 +78,8 @@ If editor setup was successful `configure` method returns an interface with sing
 
 #### editor
 
-Type: `String` or `null`  
-Values: `'sublime'`, `'atom'`, `'code'`, `'webstorm'`, `'phpstorm'`, `'idea14ce'`, `'vim'`, `'emacs'`, `'visualstudio'`  
+Type: `String` or `null`
+Values: `'sublime'`, `'atom'`, `'code'`, `'webstorm'`, `'phpstorm'`, `'idea14ce'`, `'vim'`, `'emacs'`, `'visualstudio'`
 Default: `null`
 
 Editor to open a file. Once value is set, we try to detect a command to launch an editor.
@@ -83,7 +98,7 @@ Supported editors:
 
 #### cmd
 
-Type: `String` or `null`  
+Type: `String` or `null`
 Default: `null`
 
 Command to launch an editor.
@@ -107,7 +122,7 @@ var editor = openInEditor.configure({
 
 #### pattern
 
-Type: `String` or `null`  
+Type: `String` or `null`
 Default: `null`
 
 Option to specify arguments for a command. Pattern can contain placeholders to be replaced by actual values. Supported placeholders: `filename`, `line` and `column`.
@@ -132,14 +147,14 @@ var editor = openInEditor.configure({
 
 #### line
 
-Type: `Number`  
+Type: `Number`
 Default: `1`
 
 Defines the number of the first line in the editor. Usually it's `1`, but you can set it to `0`.
 
 #### column
 
-Type: `Number`  
+Type: `Number`
 Default: `1`
 
 Defines the number of the first column in the editor. Usually it's `1`, but you can set it to `0`.
