@@ -1,0 +1,19 @@
+environment:
+  matrix:
+    - nodejs_version: "4.8"
+    - nodejs_version: "5.12"
+    - nodejs_version: "6.10"
+    - nodejs_version: "7.9"
+cache:
+  - node_modules
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - if exist node_modules npm prune
+  - if exist node_modules npm rebuild
+  - npm install
+build: off
+test_script:
+  - node --version
+  - npm --version
+  - npm run test-ci
+version: "{build}"

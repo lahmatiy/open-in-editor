@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "4.8"
+  - "5.12"
+  - "6.10"
+  - "7.9"
+sudo: false
+cache:
+  directories:
+    - node_modules
+before_install:
+  - "test ! -d node_modules || npm prune"
+  - "test ! -d node_modules || npm rebuild"
+script:
+  - "npm run-script test-ci"
+  - "npm run-script lint"
+after_script:
+  - "test -e ./coverage/lcov.info && npm install coveralls@2.13.1 && cat ./coverage/lcov.info | coveralls"
