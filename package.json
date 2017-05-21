@@ -44,9 +44,10 @@
     "mocha": "3.2.0"
   },
   "scripts": {
-    "lint": "eslint --ext js .",
     "fix": "eslint --fix --ext js .",
+    "lint": "eslint --ext js .",
     "test": "mocha --reporter spec --bail --check-leaks test",
+    "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test",
     "test-watch": "mocha -w --reporter spec --bail --check-leaks test"
   }
 }
